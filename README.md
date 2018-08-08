@@ -6,7 +6,7 @@ user authentication demo with password hashing and passport.js
 
 
 ## Steps:
-1. clone and install packages (npm install)
+1. clone and install packages (npm install), add json read and write methods
 2. registration - create a route and process request (save to users.json)
 3. add form validation using [express-validator](https://github.com/express-validator/express-validator)
 4. hash user password with [bcrypt](https://github.com/kelektiv/node.bcrypt.js/)
