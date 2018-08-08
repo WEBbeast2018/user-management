@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<ul class="nav">
+  <li class="nav-item">
+    <a class="nav-link active" href="/home">Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/register">Register</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/login">Login</a>
+  </li>
+  <li class="nav-item hidden">
+    <a class="nav-link disabled" href="/logout">Logout</a>
+  </li>
+</ul>
+
+<div class="jumbotron">
+  <h1 class="display-4">Home</h1>
+  <p class="lead">This is a simple page for demonstrating user management.</p>
+  <hr class="my-4">
+  <p>If you are logged in - you may see additional info</p>
+  <p class="lead">
+    <button class="btn btn-primary btn-lg" onclick="showFeed()" role="button">Show My Feed</button>
+  </p>
+</div>
+
+<script>
+	function showFeed() {
+
+    }
+</script>
+</body>
+</html>
