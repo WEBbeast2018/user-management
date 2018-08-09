@@ -1,11 +1,14 @@
 const path = require('path');
 const express = require('express');
 const app = express();
+const multer  = require('multer');
+const upload = multer();
+
 require('./common.middlewares').addCommonMiddlewares(app);
 const dataService = require('./data.service');
 
 dataService.readJson('users', (data) => {
-  console.log('Ta da!');
+  console.log('Ta aada!');
   console.log(data)
 });
 
@@ -16,10 +19,22 @@ app.get('/', (req, res) => {
 app.get('/home', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
 });
+// app.route('/book')
+app.route('/register')
+  .get((req, res) => {
+    res.sendFile(path.join(__dirname, 'public/register.html'));
+  })
+  .post(upload.array(), function (req, res) {
+    const newUser = {
+      email: req.body['email'],
+      password: req.body['psw']
+    };
 
-app.get('/register', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/register.html'));
-});
+    dataService.readJson('users', (users) => {
+      users.push(newUser);
+      dataService.writeJson('users', users, () => res.redirect('/home'));
+    });
+  });
 
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/login.html'));
