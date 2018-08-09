@@ -8,4 +8,6 @@ module.exports.addCommonMiddlewares =  (app) => {
   });
 // json parser middleware
   app.use(express.json());
+// urlencoded parser middleware
+	app.use(express.urlencoded());
 };

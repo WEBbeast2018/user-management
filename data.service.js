@@ -5,11 +5,11 @@ function readJson(name, callbackFn) {
     if (err) {
       console.error(err.message);
     }
-    callbackFn(data);
+		callbackFn(JSON.parse(data));
   });
 }
 
-function writeJson(name, callbackFn) {
+function writeJson(name, data, callbackFn) {
   fs.writeFile(`json/${name}.json`, JSON.stringify(data), function (err, data) {
     if (err) {
       console.error(err.message);
