@@ -4,11 +4,6 @@ const session = require('express-session');
 const passport = require('passport');
 
 module.exports.addCommonMiddlewares = (app) => {
-	// json log middleware
-	app.use(function (req, res, next) {
-		console.log(`request url: ${req.url}`);
-		next()
-	});
 	// json parser middleware
 	app.use(express.json());
 	// urlencoded parser middleware
@@ -24,4 +19,9 @@ module.exports.addCommonMiddlewares = (app) => {
 	// passport init and session
 	app.use(passport.initialize());
 	app.use(passport.session());
+	// log middleware
+	app.use(function (req, res, next) {
+		console.log(`request url: ${req.url} | user: ${req.user} | authenticate: ${req.isAuthenticated()}`);
+		next()
+	});
 };
