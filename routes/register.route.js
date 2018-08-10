@@ -5,7 +5,7 @@ const { body, validationResult } = require('express-validator/check');
 
 const newUserValidation = [
 	// username must be an email
-	body('email').isEmail().withMessage('must be a valid e-mail'),
+	body('email').isEmail().withMessage('must be a valid e-mail').normalizeEmail(),
 	// password must be at least 5 chars long
 	body('password').isLength({ min: 5 }).withMessage('must be at least 5 chars long'),
 	// password must include 1 lowercase character, 1 uppercase character and a number
