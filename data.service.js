@@ -10,7 +10,7 @@ function readJson(name, callbackFn) {
 }
 
 function writeJson(name, data, callbackFn) {
-  fs.writeFile(`json/${name}.json`, JSON.stringify(data), function (err, data) {
+  fs.writeFile(`json/${name}.json`, JSON.stringify(data, null, 4), function (err, data) {
     if (err) {
       console.error(err.message);
     }

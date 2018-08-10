@@ -2,6 +2,8 @@ const path = require('path');
 const router = require('express').Router();
 const dataService = require('../data.service');
 const { body, validationResult } = require('express-validator/check');
+const bcrypt = require('bcrypt');
+const bcryptConfig = require('../config/bcrypt.config');
 
 const newUserValidation = [
 	// username must be an email
@@ -18,10 +20,15 @@ const newUserValidation = [
 			(value === req.body['password']) ? value : false
 		).withMessage("passwords don't match."),
 ];
-
+// extract error string from express-validator
 function getValidationErrorMessage(errors) {
 	const errorsMessages = errors.array().map(err => `${err.param} :  ${err.msg}`);
 	return errorsMessages.join(',')
+}
+// extract send registry form with error messages
+function sendErrorResponse(res,errorString) {
+	res.sendFile(path.join(__dirname, '../public/register.html'));
+	return res.redirect('?errors=' + errorString);
 }
 
 router.route('/')
@@ -32,18 +39,24 @@ router.route('/')
 
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
-			res.sendFile(path.join(__dirname, '../public/register.html'));
-			return res.redirect('?errors=' + getValidationErrorMessage(errors));
+			sendErrorResponse(res, getValidationErrorMessage(errors));
 		}
 
 		const newUser = {
 			email: req.body['email'],
 			password: req.body['password']
 		};
-
-		dataService.readJson('users', (users) => {
-			users.push(newUser);
-			dataService.writeJson('users', users, () => res.redirect('/home'));
+		// hash password and save
+		bcrypt.hash(newUser.password, bcryptConfig.saltRounds, (err, hash) =>{
+			newUser.password = hash;
+			dataService.readJson('users', (users) => {
+				if(users.find(u => u.email === newUser.email)) {
+					sendErrorResponse(res, 'user with this email already exist');
+				} else {
+					users.push(newUser);
+					dataService.writeJson('users', users, () => res.redirect('/home'));
+				}
+			});
 		});
 	});
 
