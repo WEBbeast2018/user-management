@@ -5,7 +5,7 @@ function readJson(name, callbackFn) {
     if (err) {
       console.error(err.message);
     }
-		callbackFn(JSON.parse(data));
+		callbackFn(JSON.parse(data), err);
   });
 }
 
@@ -14,7 +14,7 @@ function writeJson(name, data, callbackFn) {
     if (err) {
       console.error(err.message);
     }
-    callbackFn(data);
+    callbackFn(data, err);
   });
 }
 

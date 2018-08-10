@@ -2,9 +2,12 @@ const path = require('path');
 const express = require('express');
 const app = express();
 require('./common.middlewares').addCommonMiddlewares(app);
+require('./config/passport.config').init();
+
 
 // routes
 app.use('/register', require('./routes/register.route'));
+app.use('/posts', require('./routes/posts.route'));
 
 app.get('/', (req, res) => {
   res.redirect('/home');
