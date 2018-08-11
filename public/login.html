@@ -2,9 +2,130 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        main {
+            margin: auto;
+            padding: 20px;
+        }
+
+        form {
+            border: 1px solid #ccc;
+            max-width: 700px;
+        }
+
+        /* Full-width input fields */
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+        }
+
+        /* Add a background color when the inputs get focus */
+        input[type=text]:focus, input[type=password]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        /* Set a style for all buttons */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+        }
+
+        button:hover {
+            opacity: 1;
+        }
+
+
+        /* Add padding to container elements */
+        .container {
+            padding: 16px;
+        }
+
+        /* Style the horizontal ruler */
+        hr {
+            border: 1px solid #f1f1f1;
+            margin-bottom: 25px;
+        }
+
+        /* Clear floats */
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        a {
+            color: dodgerblue;
+        }
+    </style>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
 
+<header>
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link active" href="/home">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="nav-item hidden">
+            <a class="nav-link disabled" href="/logout">Logout</a>
+        </li>
+    </ul>
+</header>
+
+<main>
+    <p id="errors" class="alert alert-danger hidden" role="alert"></p>
+    <form method="post">
+        <div class="container">
+            <h1>Login</h1>
+            <label for="email"><b>Email</b></label>
+            <input type="text" placeholder="Enter Email" name="email" id="email" required>
+
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="password" id="password" required>
+
+            <div class="clearfix">
+                <button type="submit">Log me in</button>
+            </div>
+        </div>
+    </form>
+</main>
+
+<script>
+	const urlParams = new URLSearchParams(location.search);
+	const errs = urlParams.get('errors');
+	if (errs) {
+		const errorsEl = document.getElementById('errors');
+		errorsEl.innerHTML = errs.replace(/,/g, '<br>');
+		errorsEl.classList.remove('hidden');
+	}
+</script>
 </body>
 </html>

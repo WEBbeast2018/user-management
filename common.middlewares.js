@@ -34,7 +34,7 @@ module.exports.authenticationMiddleware = () =>{
 		if (req.isAuthenticated()) {
 			return next();
 		} else {
-			res.redirect('/login')
+				res.status(403).redirect('/login')
 		}
 	}
 };
