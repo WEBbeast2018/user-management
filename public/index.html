@@ -30,7 +30,7 @@
 <header>
     <ul class="nav">
         <li class="nav-item">
-            <a class="nav-link active" href="/">Home</a>
+            <a class="nav-link active" href="/home">Home</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/register">Register</a>
@@ -61,7 +61,7 @@
 
 <script>
 	function showFeed() {
-		fetch('posts')
+		fetch('posts', {credentials: "same-origin"})
 			.then(data => data.json())
 			.then(data => {
 				let html = '';

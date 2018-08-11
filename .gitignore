@@ -1,5 +1,6 @@
-# json
+# private data
 /json/users.json
+/sessions/
 
 # idea
 /.idea
