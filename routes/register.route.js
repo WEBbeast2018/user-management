@@ -36,28 +36,27 @@ router.route('/')
 		res.sendFile(path.join(__dirname, '../public/register.html'));
 	})
 	.post(newUserValidation, (req, res) => {
-
-		const errors = validationResult(req);
-		if (!errors.isEmpty()) {
-			sendErrorResponse(res, getValidationErrorMessage(errors));
-		}
-
-		const newUser = {
-			email: req.body['email'],
-			password: req.body['password']
-		};
-		// hash password and save
-		bcrypt.hash(newUser.password, bcryptConfig.saltRounds, (err, hash) =>{
-			newUser.password = hash;
-			dataService.readJson('users', (users) => {
-				if(users.find(u => u.email === newUser.email)) {
-					sendErrorResponse(res, 'user with this email already exist');
-				} else {
-					users.push(newUser);
-					dataService.writeJson('users', users, () => res.redirect('/home'));
-				}
-			});
-		});
-	});
+    dataService.readJson('users', (users) => {
+      const newUser = {
+        email: req.body['email'],
+        password: req.body['password']
+      };
+      if(users.find(u => u.email === newUser.email)) {
+        // if user already exist
+        return sendErrorResponse(res, 'user with this email already exist');
+      }
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        // validation not passed
+        return sendErrorResponse(res, getValidationErrorMessage(errors));
+      }
+      // hash password and save
+      bcrypt.hash(newUser.password, bcryptConfig.saltRounds, (err, hash) => {
+        newUser.password = hash;
+            users.push(newUser);
+            dataService.writeJson('users', users, () => res.redirect('/home'));
+        });
+      });
+    });
 
 module.exports = router;
