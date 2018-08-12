@@ -2,7 +2,6 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
-const FileStore = require('session-file-store')(session);
 
 module.exports.addCommonMiddlewares = (app) => {
 	// json parser middleware
@@ -16,7 +15,6 @@ module.exports.addCommonMiddlewares = (app) => {
 		secret:  'replace me on production',
 		resave: false,
 		saveUninitialized: false,
-		store: new FileStore
 	}));
 	// passport init and session
 	app.use(passport.initialize());
