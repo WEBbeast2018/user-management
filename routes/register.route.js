@@ -34,42 +34,40 @@ function sendErrorResponse(res, errorString) {
 }
 
 router.route('/')
-	.get((req, res) => {
-		res.sendFile(path.join(__dirname, '../public/register.html'));
-	})
-	.post(newUserValidation, (req, res) => {
-
-		const errors = validationResult(req);
-		if (!errors.isEmpty()) {
-			sendErrorResponse(res, getValidationErrorMessage(errors));
-		}
-
-		const newUser = {
-			email: req.body['email'],
-			password: req.body['password']
-		};
-		// hash password and save
-		bcrypt.hash(newUser.password, bcryptConfig.saltRounds, (err, hash) => {
-			newUser.password = hash;
-			dataService.readJson('users', (users) => {
-				if (users.find(u => u.email === newUser.email)) {
-					sendErrorResponse(res, 'user with this email already exist');
-				} else {
-					newUser.id = users.length +1;
-					users.push(newUser);
-					dataService.writeJson('users', users, () => {
-						req.login(newUser.email, (err) => {
-							if (err) {
-								console.error(err);
-								sendErrorResponse(res, 'unknown error when login new user');
-							} else {
-								res.redirect('/home');
-							}
-						});
-					});
-				}
-			});
-		});
-	});
+  .get((req, res) => {
+    res.sendFile(path.join(__dirname, '../public/register.html'));
+  })
+  .post(newUserValidation, (req, res) => {
+    dataService.readJson('users', (users) => {
+      const newUser = {
+        email: req.body['email'],
+        password: req.body['password'],
+        id: users.length + 1
+      };
+      if (users.find(u => u.email === newUser.email)) {
+        // if user already exist
+        return sendErrorResponse(res, 'user with this email already exist');
+      }
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        // validation not passed
+        return sendErrorResponse(res, getValidationErrorMessage(errors));
+      }
+      // hash password and save
+      bcrypt.hash(newUser.password, bcryptConfig.saltRounds, (err, hash) => {
+        newUser.password = hash;
+        users.push(newUser);
+        dataService.writeJson('users', users, () =>
+          req.login(newUser.email, (err) => {
+            if (err) {
+              console.error(err);
+              sendErrorResponse(res, 'unknown error when login new user');
+            } else {
+              res.redirect('/home');
+            }
+          }));
+      });
+    });
+  });
 
 module.exports = router;
