@@ -23,7 +23,7 @@ module.exports.addCommonMiddlewares = (app) => {
 	app.use(passport.session());
 	// log middleware
 	app.use(function (req, res, next) {
-		console.log(`request url: ${req.url} | user: ${req.user} | authenticate: ${req.isAuthenticated()}`);
+		console.log(`request url: ${req.url} | user: ${JSON.stringify(req.user)} | authenticate: ${req.isAuthenticated()}`);
 		next()
 	});
 };

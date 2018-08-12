@@ -18,6 +18,13 @@ app.get('/home', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
+app.get('/logout', (req, res) => {
+  req.logout();
+  req.session.destroy();
+  res.clearCookie('connect.sid');
+  res.redirect('/home');
+});
+
 app.listen(3000,
-	() => console.log('server listening on port 3000')
+  () => console.log('server listening on port 3000')
 );
