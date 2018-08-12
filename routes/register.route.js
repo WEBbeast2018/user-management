@@ -58,7 +58,7 @@ router.route('/')
 					newUser.id = users.length +1;
 					users.push(newUser);
 					dataService.writeJson('users', users, () => {
-						req.login(newUser.email, (err) => {
+						req.login({userId: newUser.id}, (err) => {
 							if (err) {
 								console.error(err);
 								sendErrorResponse(res, 'unknown error when login new user');
