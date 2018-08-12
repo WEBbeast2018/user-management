@@ -21,6 +21,9 @@
     "session-file-store": "^1.2.0"
   },
   "nodemonConfig": {
-    "ignore": ["sessions/*", "json/*"]
+    "ignore": [
+      "sessions/*",
+      "json/*"
+    ]
   }
 }
