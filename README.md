@@ -16,8 +16,12 @@ user authentication demo with password hashing and passport.js
    - add login page
 6. make sessions data persistant with [session-file-store](https://github.com/valery-barysok/session-file-store)
 7. Add login functionality with `bcrypt.compare` and passport [LocalStrategy](https://github.com/jaredhanson/passport-local)
+8. Add logout link/button
+9. Create TSL certificate and add HTTPS
+
 
 Useful materials:
+
 [Node Authentication Tutorial](https://www.youtube.com/watch?v=gYjHDMPrkWU&list=PLpPnRKq7eNW3Qm2OfoJ3Hyvf-36TulLDp)
 
 [How to use Express-Validator 5.x](https://charlietheprogrammer.com/how-to-use-express-validator-5/)
@@ -32,3 +36,8 @@ Useful materials:
 
 [Handling Failed HTTP Responses With fetch](https://www.tjvantoll.com/2015/09/13/fetch-and-errors/)
 
+[Node Documentation TSL](https://nodejs.org/docs/latest/api/tls.html#tls_tls_ssl_concepts)
+
+[Setup an HTTPS server with NodeJS and Express](https://www.youtube.com/watch?v=8ptiZlO7ROs)
+
+[Automatic HTTPS connection/redirect with node.js/express](https://stackoverflow.com/questions/7450940/automatic-https-connection-redirect-with-node-js-express)
