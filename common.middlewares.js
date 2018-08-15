@@ -3,8 +3,19 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
 const FileStore = require('session-file-store')(session);
+const protocols = require('./config/protocols.config');
 
 module.exports.addCommonMiddlewares = (app) => {
+	app.use (function (req, res, next) {
+		if (req.secure) {
+			next(); // request is HTTPS
+		} else {
+			// request was via http, so redirect to https
+			const redirectUrl = `https://${req.hostname}:${protocols.httpsPort}${req.url}`;
+			console.log(`redirect to secure protocol: ${redirectUrl}`);
+			res.redirect(redirectUrl);
+		}
+	});
 	// json parser middleware
 	app.use(express.json());
 	// urlencoded parser middleware

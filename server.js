@@ -3,7 +3,21 @@ const express = require('express');
 const app = express();
 require('./common.middlewares').addCommonMiddlewares(app);
 require('./config/passport.config').init();
+const fs = require('fs');
+const http = require('http');
+const https = require('https');
 
+const protocols = require('./config/protocols.config');
+const httpsOptions = {
+	key: fs.readFileSync('./cert/webbeast.key'),
+	cert: fs.readFileSync('./cert/webbeast.crt'),
+
+	// This is necessary only if using the client certificate authentication.
+	// requestCert: true,
+
+	// This is necessary only if the client uses the self-signed certificate.
+	ca: [ fs.readFileSync('./cert/webbeast.crt') ]
+};
 
 // routes
 app.use('/register', require('./routes/register.route'));
@@ -25,6 +39,7 @@ app.get('/logout', (req, res) => {
   res.redirect('/home');
 });
 
-app.listen(3000,
-  () => console.log('server listening on port 3000')
-);
+http.createServer(app).listen(protocols.httpPort,
+	() => console.log(`http on port ${protocols.httpPort}`));
+https.createServer(httpsOptions, app).listen(protocols.httpsPort,
+	() => console.log(`http on port ${protocols.httpsPort}`));
