@@ -19,9 +19,16 @@ user authentication demo with password hashing and passport.js
 
 Useful materials:
 [Node Authentication Tutorial](https://www.youtube.com/watch?v=gYjHDMPrkWU&list=PLpPnRKq7eNW3Qm2OfoJ3Hyvf-36TulLDp)
+
 [How to use Express-Validator 5.x](https://charlietheprogrammer.com/how-to-use-express-validator-5/)
+
 [Why chosing bcrpyt for password hashing](https://codahale.com/how-to-safely-store-a-password/)
+
 [How can bcrypt have built-in salts?](https://stackoverflow.com/questions/6832445/how-can-bcrypt-have-built-in-salts)
+
 [How do Express.js Sessions work?](https://nodewebapps.com/2017/06/18/how-do-nodejs-sessions-work/)
+
 [Fetch API with Cookie](https://stackoverflow.com/questions/34558264/fetch-api-with-cookie)
+
 [Handling Failed HTTP Responses With fetch](https://www.tjvantoll.com/2015/09/13/fetch-and-errors/)
+
