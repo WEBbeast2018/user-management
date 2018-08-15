@@ -1,3 +1,8 @@
+# private data
+/json/users.json
+/sessions/
+/cert/
+
 # idea
 /.idea
 

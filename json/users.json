@@ -1,3 +1,12 @@
 [
-
+    {
+        "email": "yuvalbarlevi@gmail.com",
+        "password": "$2b$10$hFOWl4SV70.o5aye/TGnXu/IYHPuSIPf47J53AwP2z0njSfGrZmqS",
+        "id": 1
+    },
+    {
+        "email": "yuval@webiks.com",
+        "password": "$2b$10$Kz//FmCamsH2e6y7R5gDMuN2w1yj.xg0S5NaiW0ls6hOl1qL.CDem",
+        "id": 2
+    }
 ]
